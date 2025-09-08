@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS3 Transitions & Animations</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Add initial state for animations */
+    .demo-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    
+    .demo-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <header class="fade-in">
+    <h1>Bringing Web Pages to Life <span class="emoji">🎨✨</span></h1>
+    <p class="subtitle">A showcase of CSS animations and JavaScript interactivity</p>
+    <div class="header-icons">
+      <i class="fas fa-paint-brush icon-pulse"></i>
+      <i class="fas fa-magic icon-pulse" style="animation-delay: 0.2s"></i>
+      <i class="fas fa-code icon-pulse" style="animation-delay: 0.4s"></i>
+    </div>
+  </header>
+
+  <main>
+    <!-- Section 1: CSS Transitions -->
+    <section class="demo-section" id="transitions">
+      <h2>1. CSS Transitions</h2>
+      <div class="demo-container">
+        <div class="card transition-demo">
+          <h3>Hover Effects</h3>
+          <p>Hover over these buttons to see smooth transitions</p>
+          <div class="button-group">
+            <button class="btn btn-scale">Scale Up</button>
+            <button class="btn btn-rotate">Rotate</button>
+            <div class="color-options">
+              <button class="btn btn-color-option" data-color="#4a6bff" style="background-color: #4a6bff;"></button>
+              <button class="btn btn-color-option" data-color="#ff6b6b" style="background-color: #ff6b6b;"></button>
+              <button class="btn btn-color-option" data-color="#6bff6b" style="background-color: #6bff6b;"></button>
+              <button class="btn btn-color-option" data-color="#ffd166" style="background-color: #ffd166;"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: CSS Animations -->
+    <section class="demo-section" id="animations">
+      <h2 class="slide-in-left">2. CSS Animations</h2>
+      <div class="demo-container">
+        <div class="card animation-demo hover-scale">
+          <h3><i class="fas fa-play-circle"></i> Keyframe Animations</h3>
+          <div class="animation-box" id="pulseBox">
+            <i class="fas fa-heart beat"></i>
+          </div>
+          <p>This box has a continuous pulse animation</p>
+          <button class="btn btn-scale" id="togglePulse">
+            <i class="fas fa-pause"></i> Pause Animation
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: JavaScript Controlled -->
+    <section class="demo-section" id="js-controlled">
+      <h2 class="slide-in-left" style="animation-delay: 0.1s">3. Interactive Animations</h2>
+      <div class="demo-container">
+        <div class="card js-demo hover-scale">
+          <h3><i class="fas fa-mouse-pointer"></i> Interactive Animation</h3>
+          <div class="animation-box hover-float" id="interactiveBox">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="controls">
+            <button class="btn btn-scale" id="bounceBtn">
+              <i class="fas fa-basketball-ball"></i> Bounce
+            </button>
+            <button class="btn btn-scale" id="flipBtn">
+              <i class="fas fa-sync-alt"></i> Flip
+            </button>
+            <button class="btn btn-scale shake" id="resetBtn">
+              <i class="fas fa-redo"></i> Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Modal Demo -->
+    <section class="demo-section" id="modal-demo">
+      <h2 class="slide-in-left" style="animation-delay: 0.2s">4. Animated Modal</h2>
+      <div class="demo-container">
+        <div class="card hover-scale">
+          <h3><i class="fas fa-window-maximize"></i> Modal Demo</h3>
+          <p>Click the button below to see an animated modal in action</p>
+          <button class="btn btn-primary hover-float" id="openModal">
+            <i class="fas fa-rocket"></i> Launch Modal
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription" aria-hidden="true" tabindex="-1">
+    <div class="modal-content" role="document">
+      <button class="close-btn" id="closeModal" aria-label="Close modal">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <h3 id="modalTitle">Hello There! 👋</h3>
+      <div id="modalDescription">
+        <p>This modal demonstrates a combination of CSS animations and JavaScript interactions.</p>
+        <p>Click anywhere outside or the X button to close, or press the Escape key.</p>
+      </div>
+      <div class="modal-animation" aria-hidden="true">
+        <i class="fas fa-magic"></i>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Created with ❤️ using CSS3 & JavaScript</p>
+  </footer>
+
+  <script>
+    // Add intersection observer for scroll animations
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate sections on scroll
+      const sections = document.querySelectorAll('.demo-section');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, {
+        threshold: 0.1
+      });
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+      
+      // Add hover effect to all buttons
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(button => {
+        button.addEventListener('mouseenter', () => {
+          button.classList.add('hover-effect');
+        });
+        
+        button.addEventListener('animationend', () => {
+          button.classList.remove('hover-effect');
+        });
+      });
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>
